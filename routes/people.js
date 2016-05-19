@@ -45,8 +45,22 @@ router.get('/new/', function(req, res) {
 
 /* POST registra uma nova pessoa */
 // IMPLEMENTAR AQUI
+router.post('/', function(req, res) {
+ db.query('INSERT INTO `zombies`.`person` (name) VALUES(' + db.escape(req.body.name) +')', function(err, result) {
+  req.flash('success', 'A pessoa adentrou o cemitério com uma garrafa de Sangue de boi.');
+  res.redirect('/people');
+ } );
+
+});
 
 /* DELETE uma pessoa */
 // IMPLEMENTAR AQUI
+router.delete('/:id', function(req, res) {
+ db.query('DELETE from  `zombies`.`person` WHERE id=' + db.escape(req.params.id) , function(err, result) {
+  req.flash('success', 'A pessoa Fugiu deste cemiterio com medo dos zumbis.');
+  res.redirect('/people');
+ } );
+
+});
 
 module.exports = router;
